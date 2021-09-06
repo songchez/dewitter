@@ -1,9 +1,12 @@
 import { useState } from "react";
+import Auth from "firebase/auth";
 
-function Auth () {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const onChange = (event) =>{
+function Auth_signIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [newAccount, setNewAccount] = useState(true);
+
+  const onChange = (event) =>{
         const {target: {name, value}} = event;
         if (name === "email") {
           setEmail(value);
@@ -11,9 +14,19 @@ function Auth () {
           setPassword(value);
         }
     }
-    const onSubmit = (event) =>{
+
+  const onSubmit =  async (event) =>{
         event.preventDefault();
+        const auth = Auth.getAuth();
+        if (newAccount) {
+          //create account
+          await Auth.createUserWithEmailAndPassword(auth, email, password);
+        } else {
+          //login
+          await Auth.signInWithEmailAndPassword(auth, email,password);
+        }
     }
+
     return (
       <div>
         <h3>로그인페이지</h3>
@@ -26,6 +39,7 @@ function Auth () {
             value={email}
             onChange = {onChange}
           />
+          <p/>
           <input
             name="password"
             type="password"
@@ -34,13 +48,16 @@ function Auth () {
             value={password}
             onChange = {onChange}
           />
-          <input type="submit" value="Log In" />
+          <input type="submit" value={newAccount ? "Sign Up" : "Login"} />
         </form>
         <div>
-          <button type="button">Continue with Google</button>
+          <p/>
+          <button type="button">Sign Up</button><p/>
+          <button type="button">Continue with Google</button><p/>
           <button type="button">Continue with Github</button>
         </div>
       </div>
     );
 }
-export default Auth;
+
+export default Auth_signIn;

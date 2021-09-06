@@ -2,7 +2,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "../routes/Auth";
 import Home from "../routes/Home";
 
-function AppRouters({isLoggedIn}){ 
+function AppRouters({isLoggedIn}){
     return (
       <Router>
         <Switch>

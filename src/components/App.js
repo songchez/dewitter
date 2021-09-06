@@ -1,9 +1,8 @@
 import AppRouters from "./Router";
 import { useState } from "react";
-import {authService} from "../m_base";
 
 function App() {
-  const [isLoggedIn] = useState(authService.currentUser);
+  const [isLoggedIn] = useState("");
   return <AppRouters isLoggedIn = {isLoggedIn} />;
 }
 
