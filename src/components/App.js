@@ -4,13 +4,13 @@ import f_app from "../m_base";
 import { useEffect, useState } from "react";
 
 //파이어베이스 초기화
-const sign_in = getAuth(f_app);
+const auth = getAuth(f_app);
 
 function App() {
   const [init, setInit] = useState(false);
-  const [f_user, setF_user] = useState(sign_in.currentUser);
+  const [f_user, setF_user] = useState(auth.currentUser);
   useEffect(() => {
-    onAuthStateChanged(sign_in, (user) => {
+    onAuthStateChanged(auth, (user) => {
       setF_user(user);
       setInit(true);
     });

@@ -44,7 +44,7 @@ function Auth_signIn() {
         }
     }
     const toggleAccount = () => setNewAccount((prev)=> !prev);
-    const onSocialClick = (event) => {
+    const onSocialClick = async (event) => {
       const {
         target: { name },
       } = event;
@@ -54,6 +54,23 @@ function Auth_signIn() {
       } else if(name === "github"){
         provider = new GithubAuthProvider(auth);
       }
+      await signInWithPopup(auth, provider)
+      .then((result) => {
+        //This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        //const user = result.user;
+      }).catch((error) => {
+        const errorMessage = error.message;
+        console.error(errorMessage);
+        // // Handle Errors here.
+        // const errorCode = error.code;
+        // // The email of the user's account used.
+        // const email = error.email;
+        // // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+      });
     } 
     return (
       <div>
