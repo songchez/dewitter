@@ -1,10 +1,13 @@
 import { useState } from "react";
-import Auth from "firebase/auth";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth} from "firebase/auth";
+import f_app from "../m_base";
+
+const auth = getAuth(f_app);
 
 function Auth_signIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newAccount, setNewAccount] = useState(true);
+  const [newAccount, setNewAccount] = useState("");
 
   const onChange = (event) =>{
         const {target: {name, value}} = event;
@@ -17,13 +20,12 @@ function Auth_signIn() {
 
   const onSubmit =  async (event) =>{
         event.preventDefault();
-        const auth = Auth.getAuth();
         if (newAccount) {
           //create account
-          await Auth.createUserWithEmailAndPassword(auth, email, password);
+          await createUserWithEmailAndPassword(auth, email, password);
         } else {
           //login
-          await Auth.signInWithEmailAndPassword(auth, email,password);
+          await signInWithEmailAndPassword(auth, email,password);
         }
     }
 
