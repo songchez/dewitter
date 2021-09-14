@@ -1,7 +1,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import f_app from "../m_base";
-import {useState} from "react";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import {useEffect, useState} from "react";
+import { collection, addDoc, getFirestore, doc } from "firebase/firestore";
 
 const db = getFirestore(f_app);
 const auth = getAuth(f_app);
@@ -16,6 +16,18 @@ const Logout = ()=>{
 
 function Home ({user_id}) {
   const [deweet, setDeweet] = useState("");
+  const [sDeweets, setsDeweets] = useState("");
+  const getdeweets = async ()=>{
+    const dbDeweets = await doc(collection(db, "msg"));
+    console.log(dbDeweets);
+  }
+  useEffect(() => {
+    //effect
+    
+    return () => {
+      //cleanup
+    }
+  }, [])
   const onSubmitTweet = async (event)=>{
     event.preventDefault();
     await addDoc(collection(db, "msg"), {
