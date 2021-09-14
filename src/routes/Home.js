@@ -1,7 +1,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import f_app from "../m_base";
 import {useEffect, useState} from "react";
-import { collection, addDoc, getFirestore, getDocs,onSnapshot,query,orderBy } from "firebase/firestore";
+import { collection, addDoc, getFirestore,onSnapshot,query,orderBy } from "firebase/firestore";
 
 const db = getFirestore(f_app);
 const auth = getAuth(f_app);
@@ -18,20 +18,12 @@ function Home ({user}) {
   const [deweet, setDeweet] = useState("");
   const [nDeweets, setDeweets] = useState([]);
 
-  // const getDeweets = async ()=>{
-  //   const dbDeweets = await getDocs(collection(db, "msg"));
-  //   dbDeweets.forEach((document) => {
-  //     const deweetObject = {...document.data(), id: document.id };
-  //     setDeweets((prev)=>[deweetObject, ...prev]);
-  //   });
-  // }
   useEffect(() => {
-
     // 실시간으로 데이터를 데이터베이스에서 가져오기
-
+    // 천천히 이해해보자
     const q = query(
     collection(getFirestore(), 'msg'),
-    // where('text', '==', 'hehe') // where뿐만아니라 각종 조건 이 영역에 때려부우면 됨
+    // where('text', '==') // where뿐만아니라 각종 조건 이 영역에 때려부우면 됨
     orderBy('createdAt')
     );
     const unsubscribe = onSnapshot(q, querySnapshot => {
