@@ -8,7 +8,8 @@ function Auth_signIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(false);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+  
 
   const onChange = (event) =>{
         const {target: {name, value}} = event;
@@ -56,11 +57,7 @@ function Auth_signIn() {
       }
       await signInWithPopup(auth, provider)
       .then((result) => {
-        //This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // The signed-in user info.
-        //const user = result.user;
+        //setUserObject(result.user);
       }).catch((error) => {
         const errorMessage = error.message;
         console.error(errorMessage);

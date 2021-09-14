@@ -9,6 +9,7 @@ const auth = getAuth(f_app);
 function App() {
   const [init, setInit] = useState(false);
   const [f_user, setF_user] = useState(auth.currentUser);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setF_user(user);
