@@ -1,7 +1,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import f_app from "../m_base";
 import {useEffect, useState} from "react";
-import { collection, addDoc, getFirestore, getDocs } from "firebase/firestore";
+import { collection, addDoc, getFirestore, getDocs,onSnapshot,query,orderBy } from "firebase/firestore";
 
 const db = getFirestore(f_app);
 const auth = getAuth(f_app);
@@ -17,21 +17,46 @@ const Logout = ()=>{
 function Home ({user}) {
   const [deweet, setDeweet] = useState("");
   const [nDeweets, setDeweets] = useState([]);
-  const getDeweets = async ()=>{
-    const dbDeweets = await getDocs(collection(db, "msg"));
-    dbDeweets.forEach((document) => {
-      const deweetObject = {...document.data(), id: document.id };
-      setDeweets((prev)=>[deweetObject, ...prev]);
-    });
-  }
+
+  // const getDeweets = async ()=>{
+  //   const dbDeweets = await getDocs(collection(db, "msg"));
+  //   dbDeweets.forEach((document) => {
+  //     const deweetObject = {...document.data(), id: document.id };
+  //     setDeweets((prev)=>[deweetObject, ...prev]);
+  //   });
+  // }
   useEffect(() => {
-    getDeweets();
-  }, [])
+
+    // 실시간으로 데이터를 데이터베이스에서 가져오기
+
+    const q = query(
+    collection(getFirestore(), 'msg'),
+    // where('text', '==', 'hehe') // where뿐만아니라 각종 조건 이 영역에 때려부우면 됨
+    orderBy('createdAt')
+    );
+    const unsubscribe = onSnapshot(q, querySnapshot => {
+    const newArray = querySnapshot.docs.map(doc => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+    });
+    setDeweets(newArray);
+    console.log('Current deweets in CA: ', newArray);
+    });
+
+    return () => {
+    unsubscribe();
+    };
+
+    }, []);
+
   const onSubmitTweet = async (event)=>{
     event.preventDefault();
     await addDoc(collection(db, "msg"), {
       text: deweet,
       createdAt: Date.now(),
+      createdId: user.uid,
     }).catch((e) => {
       console.error(e);
     });
@@ -60,7 +85,8 @@ function Home ({user}) {
         <div>
           {nDeweets.map((deweet) => (
             <div key={deweet.id}>
-              <h4>{deweet.deweet}</h4>
+              <h3>{deweet.text}</h3>
+              <p>{new Date(deweet.createdAt).toString()}</p>
             </div>
           ))}
         </div>

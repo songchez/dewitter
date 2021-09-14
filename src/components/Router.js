@@ -8,7 +8,7 @@ function AppRouters({user}){
         <Switch>
           {user ? ( // User is signed In
             <Route exact path="/">
-              <Home user_id = {user.uid} />
+              <Home user = {user} />
             </Route> // User is signed out
           ) : (
             <Route exact path="/">
