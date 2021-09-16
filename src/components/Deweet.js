@@ -53,6 +53,7 @@ const Deweet = ({ deweetObj, isOwned }) => {
             />
           </form>
           <button onClick={toggleEdit}>Cancel</button>
+          <button onClick={on_EditSubmit}>Edit!</button>
         </>
       ) : (
         //안눌렀을때
