@@ -1,6 +1,7 @@
-import { getAuth, signOut } from "firebase/auth";
-import f_app from "../m_base";
-import { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
+import { auth, db, storageSv } from "../m_base";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import { useEffect, useRef, useState } from "react";
 import {
   collection,
   addDoc,
@@ -9,11 +10,12 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import { v4 as uuidV4 } from "uuid";
 import Deweet from "../components/Deweet";
 
-const db = getFirestore(f_app);
-const auth = getAuth(f_app);
 
+
+//홈화면
 const Logout = () => {
   signOut(auth)
     .then(() => {
@@ -27,7 +29,7 @@ const Logout = () => {
 function Home({ user }) {
   const [deweet, setDeweet] = useState("");
   const [nDeweets, setDeweets] = useState([]);
-  const [attachments, setAttachments] = useState("");
+  const [attachment, setAttachment] = useState("");
 
   useEffect(() => {
     // 실시간으로 데이터를 데이터베이스에서 가져오기
@@ -53,19 +55,33 @@ function Home({ user }) {
     };
   }, []);
 
-  const onSubmitTweet = async (event) => {
+//서밋버튼
+  const onSubmitDeweet = async (event) => {
     event.preventDefault();
-    await addDoc(collection(db, "msg"), {
+    //파일업로드
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const attachmentRef = ref(storageSv, `${user.uid}/${uuidV4}`);
+      const response = await uploadString(attachmentRef, attachment, "data_url");
+      attachmentUrl = await getDownloadURL(response.ref);
+    }
+    const deweets = {
       text: deweet,
       createdAt: Date.now(),
       createdId: user.uid,
-      //whoCreate:
-    }).catch((e) => {
+      attachmentUrl,
+    };
+    await addDoc(collection(db, "msg"), 
+      deweets,
+    ).catch((e) => {
       console.error(e);
     });
     //비우기
+    console.log(attachmentUrl);
     setDeweet("");
+    onClearAttachment();
   };
+
   const onChange = (event) => {
     const {
       target: { value },
@@ -74,18 +90,25 @@ function Home({ user }) {
   };
   const onFileChange = (event) => {
     const {
-      target: { file },
+      target: { files },
     } = event;
-    const theFile = file[0];
+    const theFile = files[0];
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
-      //가져온거 넣기
+      //image가져온거 넣기
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setAttachments(result);
+      setAttachment(result);
     };
     reader.readAsDataURL(theFile);
+  };
+
+  //사진 지우기
+  const fileInput = useRef();
+  const onClearAttachment = () => {
+    setAttachment("");
+    fileInput.current.value = "";
   };
   return (
     <div>
@@ -100,8 +123,24 @@ function Home({ user }) {
           placeholder="What's on your mind ?"
           maxLength={120}
         ></input>
-        <input type="file" accept="image/*" onChange={onFileChange} />
-        <input type="submit" value="Deweet" onClick={onSubmitTweet} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+          ref={fileInput}
+        />
+        <input type="submit" value="Deweet" onClick={onSubmitDeweet} />
+        {attachment && (
+          <div>
+            <img
+              src={attachment}
+              width="100px"
+              height="100px"
+              alt="yourDeweet"
+            />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
       </form>
       <div>
         {nDeweets.map((deweets) => (
