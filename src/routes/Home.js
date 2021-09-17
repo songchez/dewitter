@@ -56,12 +56,12 @@ function Home({ user }) {
   }, []);
 
 //서밋버튼
+let attachmentUrl = "";
   const onSubmitDeweet = async (event) => {
     event.preventDefault();
     //파일업로드
-    let attachmentUrl = "";
     if (attachment !== "") {
-      const attachmentRef = ref(storageSv, `${user.uid}/${uuidV4}`);
+      const attachmentRef = ref(storageSv, `${user.uid}/${uuidV4()}`);
       const response = await uploadString(attachmentRef, attachment, "data_url");
       attachmentUrl = await getDownloadURL(response.ref);
     }
@@ -77,7 +77,6 @@ function Home({ user }) {
       console.error(e);
     });
     //비우기
-    console.log(attachmentUrl);
     setDeweet("");
     onClearAttachment();
   };
@@ -148,6 +147,7 @@ function Home({ user }) {
             key={deweets.id}
             deweetObj={deweets}
             isOwned={deweets.createdId === user.uid}
+            attachmentUrl={deweets.attachmentUrl}
           />
         ))}
       </div>

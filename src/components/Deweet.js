@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const db = getFirestore(f_app);
 
-const Deweet = ({ deweetObj, isOwned }) => {
+const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
   const [editing, setEditing] = useState(false);
   const [newDeweet, setNewDeweet] = useState(deweetObj.text);
 
@@ -58,6 +58,8 @@ const Deweet = ({ deweetObj, isOwned }) => {
       ) : (
         //안눌렀을때
         <>
+        {console.log(attachmentUrl)}
+        {attachmentUrl && <img src={attachmentUrl} width="50" height="50" alt="attach"/>}
           <h3>{deweetObj.text}</h3>
           <p>{new Date(deweetObj.createdAt).toString()}</p>
           {isOwned && (
