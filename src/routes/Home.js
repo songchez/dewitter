@@ -13,8 +13,6 @@ import {
 import { v4 as uuidV4 } from "uuid";
 import Deweet from "../components/Deweet";
 
-
-
 //홈화면
 const Logout = () => {
   signOut(auth)
@@ -55,14 +53,19 @@ function Home({ user }) {
     };
   }, []);
 
-//서밋버튼
-let attachmentUrl = "";
+  //서밋버튼
+
   const onSubmitDeweet = async (event) => {
     event.preventDefault();
     //파일업로드
+    let attachmentUrl = "";
     if (attachment !== "") {
       const attachmentRef = ref(storageSv, `${user.uid}/${uuidV4()}`);
-      const response = await uploadString(attachmentRef, attachment, "data_url");
+      const response = await uploadString(
+        attachmentRef,
+        attachment,
+        "data_url"
+      );
       attachmentUrl = await getDownloadURL(response.ref);
     }
     const deweets = {
@@ -71,12 +74,10 @@ let attachmentUrl = "";
       createdId: user.uid,
       attachmentUrl,
     };
-    await addDoc(collection(db, "msg"), 
-      deweets,
-    ).catch((e) => {
+    await addDoc(collection(db, "msg"), deweets).catch((e) => {
       console.error(e);
     });
-    //비우기
+    //창비우기
     setDeweet("");
     onClearAttachment();
   };
@@ -109,6 +110,7 @@ let attachmentUrl = "";
     setAttachment("");
     fileInput.current.value = "";
   };
+  //화면
   return (
     <div>
       <h1>홈로리홈홈</h1>

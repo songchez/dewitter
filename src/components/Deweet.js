@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { deleteDoc, updateDoc, getFirestore, doc } from "@firebase/firestore";
-import f_app from "../m_base";
+import { deleteDoc, updateDoc, doc } from "@firebase/firestore";
+import { ref, deleteObject } from "@firebase/storage";
+import { db, storageSv } from "../m_base";
 import { useState } from "react";
 
-const db = getFirestore(f_app);
+
 
 const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
   const [editing, setEditing] = useState(false);
@@ -16,6 +17,7 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
     if (ok) {
       //경/로를 지정
       await deleteDoc(doc(db, `msg/${deweetObj.id}`));
+      await deleteObject(ref(storageSv, deweetObj.attachmentUrl));
     }
   };
 
@@ -58,7 +60,6 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
       ) : (
         //안눌렀을때
         <>
-        {console.log(attachmentUrl)}
         {attachmentUrl && <img src={attachmentUrl} width="50" height="50" alt="attach"/>}
           <h3>{deweetObj.text}</h3>
           <p>{new Date(deweetObj.createdAt).toString()}</p>

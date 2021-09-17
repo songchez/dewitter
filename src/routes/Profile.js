@@ -1,5 +1,5 @@
 
 function Profile () {
-    return (<div><h1>프로퐈일</h1></div>)
+    return (<div><h1>Edit your Profile</h1></div>)
 }
 export default Profile;
