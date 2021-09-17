@@ -3,7 +3,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { deleteDoc, updateDoc, doc } from "@firebase/firestore";
 import { ref, deleteObject } from "@firebase/storage";
-import { db, storageSv } from "../m_base";
+import { db, storageSv } from "m_base";
 import { useState } from "react";
 
 

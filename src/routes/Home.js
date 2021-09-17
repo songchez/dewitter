@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { auth, db, storageSv } from "../m_base";
+import { auth, db, storageSv } from "m_base";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -11,7 +11,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
-import Deweet from "../components/Deweet";
+import Deweet from "components/Deweet";
 
 //홈화면
 const Logout = () => {

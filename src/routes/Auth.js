@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { auth } from "../m_base";
+import { auth } from "m_base";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

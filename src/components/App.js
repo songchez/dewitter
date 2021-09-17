@@ -1,10 +1,9 @@
-import AppRouters from "./Router";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import f_app from "../m_base";
+import AppRouters from "components/Router";
+import { onAuthStateChanged } from "firebase/auth";
+import {auth} from "m_base";
 import { useEffect, useState } from "react";
 
 //파이어베이스 초기화
-const auth = getAuth(f_app);
 
 function App() {
   const [init, setInit] = useState(false);
