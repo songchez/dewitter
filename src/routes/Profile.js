@@ -14,7 +14,7 @@ import { v4 as uuidV4 } from "uuid";
 const Profile = ({ refreshUser, user }) => {
   const [newDisplayName, setDisplayName] = useState(user.displayName);
   const [userPhoto, setUserPhoto] = useState(user.photoURL);
-
+  //console.log(user.photoURL); 현재상태확인
   useEffect(() => {//처음 실행
     getMyDeweets();
   });
@@ -39,6 +39,7 @@ const Profile = ({ refreshUser, user }) => {
       let userPhotoUrl="";
       if(userPhoto === user.photoURL){
         console.log("이미지 안바뀜");
+        userPhotoUrl = user.photoURL;
       }else if (userPhoto !== "") {
         const userPhotoRef = ref(storageSv, `${user.uid}/${uuidV4()}`);
         const response = await uploadString(
