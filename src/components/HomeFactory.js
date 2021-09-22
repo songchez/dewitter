@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { addDoc,  collection } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
 
-const HomeFactory = ({user, refreshUser}) => {
+const HomeFactory = ({user, refreshUser}) => { 
   const [deweet, setDeweet] = useState("");
   const [attachment, setAttachment] = useState("");
   const onChange = (event) => {
@@ -76,7 +76,6 @@ const HomeFactory = ({user, refreshUser}) => {
   };
   return (
     <>
-      <h1>홈</h1>
       <button onClick={Logout}>로그아웃🎆</button>
       <form onSubmit={onSubmitDeweet}>
         <input

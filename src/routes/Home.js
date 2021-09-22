@@ -9,16 +9,11 @@ import {
 import Deweet from "components/Deweet";
 import HomeFactory from "components/HomeFactory";
 
-//홈화면
-
-function Home({ user ,refreshUser }) {
+function Home({ user, refreshUser }) { //홈화면
   const [nDeweets, setDeweets] = useState([]);
   useEffect(() => {
     // 실시간으로 데이터를 데이터베이스에서 가져오기
-    const q = query(
-      collection(getFirestore(), "msg"),
-      orderBy("createdAt")
-    );
+    const q = query(collection(getFirestore(), "msg"), orderBy("createdAt"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newArray = querySnapshot.docs.map((doc) => {
         return {
@@ -37,7 +32,8 @@ function Home({ user ,refreshUser }) {
   //화면
   return (
     <div>
-      <HomeFactory user={user} refreshUser ={refreshUser}/>
+      <h1>홈</h1>
+      <HomeFactory user={user} refreshUser={refreshUser} />
       <div>
         {nDeweets.map((deweets) => (
           <Deweet
