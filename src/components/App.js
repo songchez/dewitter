@@ -11,23 +11,30 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setF_user({
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        uid: user.uid,
-        updateProfile: (args) => updateProfile(auth , args),
-      });
+      if (user) {
+        setF_user({
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          uid: user.uid,
+          updateProfile: (args) => updateProfile(auth, args),
+        });
+      }
       setInit(true);
     });
   }, []);
 
   const refreshUser = () => {
-    const u = auth.currentUser;
-    setF_user({
-      displayName: u.displayName,
-      photoURL: u.photoURL,
-      uid: u.uid,
-      updateProfile: (args) => updateProfile(auth, args),});
+    if (auth.currentUser) {
+      const u = auth.currentUser;
+      setF_user({
+        displayName: u.displayName,
+        photoURL: u.photoURL,
+        uid: u.uid,
+        updateProfile: (args) => updateProfile(auth, args),
+      });
+    } else{
+      setF_user(null);
+    }
   };
 
   return (

@@ -12,7 +12,7 @@ function AppRouters({ refreshUser, user }) {
         {user ? ( // User is signed In
           <div>
             <Route exact path="/">
-              <Home user={user} />
+              <Home refreshUser = {refreshUser} user={user} />
             </Route>
             <Route exact path="/profile">
               <Profile refreshUser = {refreshUser} user={user} />
