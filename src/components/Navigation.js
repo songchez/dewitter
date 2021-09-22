@@ -10,11 +10,13 @@ const Navigation = ({ user }) => {
         <li>
           <Link to="/">
             <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
+            Deweet
           </Link>
         </li>
         <li>
-          <Link to="/profile">
+          <Link to="/profile">  
             <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
+            {user.displayName}의 Profile
           </Link>
         </li>
       </ul>
