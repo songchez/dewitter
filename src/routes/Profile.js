@@ -6,13 +6,20 @@ import {
   query,
   where,
 } from "@firebase/firestore";
-import { db, auth } from "m_base";
-import { useEffect, useState } from "react";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import { db, auth, storageSv } from "m_base";
+import { useEffect, useRef, useState } from "react";
+import { v4 as uuidV4 } from "uuid";
 
-const Profile = ({ user }) => {
-  const [newDisplayName, setDisplayName] =useState(user.displayName)
+const Profile = ({ refreshUser, user }) => {
+  const [newDisplayName, setDisplayName] = useState(user.displayName);
+  const [userPhoto, setUserPhoto] = useState(user.photoURL);
 
-  const getMyDeweets = async () => {
+  useEffect(() => {//처음 실행
+    getMyDeweets();
+  });
+
+  const getMyDeweets = async () => { //deweet받아오기
     const deweets = query(
       collection(db, "msg"),
       where("createdId", "==", user.uid),
@@ -24,35 +31,113 @@ const Profile = ({ user }) => {
       //console.log(doc.id, " => ", doc.data());
     });
   };
-const changeName = async () =>{
-  await updateProfile(auth.currentUser ,{
-    displayName: newDisplayName,
-  }).then(() => {
-    // Profile updated!
-  }).catch((error) => {
-    console.log(error);
-  });
-  
-}
 
-const onChangeDisName = (event) => {
-  const {
-    target: { value },
-  } = event;
-  setDisplayName(value);
-};
 
-  useEffect(() => {
-    getMyDeweets();
-  });
+  const changeProfile = async () => { //프로파일 편집
+    const ok = window.confirm("Are you sure Edit Your Profile?");
+    if (ok) {
+      let userPhotoUrl="";
+      if(userPhoto === user.photoURL){
+        console.log("이미지 안바뀜");
+      }else if (userPhoto !== "") {
+        const userPhotoRef = ref(storageSv, `${user.uid}/${uuidV4()}`);
+        const response = await uploadString(
+          userPhotoRef,
+          userPhoto,
+          "data_url"
+        );
+        userPhotoUrl = await getDownloadURL(response.ref);
+      }
+      if (newDisplayName.length > 3) {
+        await updateProfile(auth.currentUser, {
+          displayName: newDisplayName,
+          photoURL: userPhotoUrl,
+        })
+          .then(() => {
+            // Profile updated!
+            refreshUser();
+            alert("프로필이 변경되었습니다.");
+            //window.location.replace("/profile");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        alert("글자수가 너무 적습니다!(4글자 이상)");
+      }
+    }
+  };
+
+
+
+  const onChangeDisName = (event) => {//디스플레이네임 바꾸기
+    const {
+      target: { value },
+    } = event;
+    setDisplayName(value);
+  };
+
+  const fileInput = useRef();
+  const onClearAttachment = () => {
+    setUserPhoto("");
+    fileInput.current.value = "";
+  };
+
+
+
+  const onChangeProFileImg = (event) => {//프로필이미지바꾸기
+    const {
+      target: { files },
+    } = event;
+    const theFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => {
+      //image가져온거 넣기
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      setUserPhoto(result);
+    };
+    reader.readAsDataURL(theFile);
+  };
 
   return (
     <div>
       <h3>{user.displayName}의 프로필</h3>
       <h1>Edit your Profile</h1>
-      <form onSubmit={changeName}>
-        <input onChange={onChangeDisName} type="text" onSubmit={changeName} placeholder= "Edit Your Name" value = {newDisplayName}></input>
+      <form onSubmit={changeProfile}>
+        <div>
+          {" "}
+          <input
+            onChange={onChangeDisName}
+            type="text"
+            placeholder="Edit Your Name"
+            value={newDisplayName}
+          ></input>
+        </div>
+        {userPhoto && (
+          <div>
+            <img
+              src={userPhoto}
+              width="100px"
+              height="100px"
+              alt={`${user.displayName} 의 프로필이미지`}
+            />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
+        <div>
+          {" "}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={onChangeProFileImg}
+            ref={fileInput}
+          />
+        </div>
+
         <input type="submit" value="Update Profile" />
+
       </form>
     </div>
   );

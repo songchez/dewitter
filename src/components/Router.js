@@ -4,7 +4,7 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 
-function AppRouters({ user }) {
+function AppRouters({ refreshUser, user }) {
   return (
     <Router>
       {user && <Navigation user={user} />}
@@ -15,7 +15,7 @@ function AppRouters({ user }) {
               <Home user={user} />
             </Route>
             <Route exact path="/profile">
-              <Profile user={user} />
+              <Profile refreshUser = {refreshUser} user={user} />
             </Route>
           </div>
         ) : (

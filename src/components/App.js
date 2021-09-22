@@ -1,6 +1,6 @@
 import AppRouters from "components/Router";
-import { onAuthStateChanged } from "firebase/auth";
-import {auth} from "m_base";
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
+import { auth } from "m_base";
 import { useEffect, useState } from "react";
 
 //파이어베이스 초기화
@@ -11,11 +11,30 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setF_user(user);
+      setF_user({
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+        updateProfile: (args) => updateProfile(auth , args),
+      });
       setInit(true);
     });
   }, []);
-  return <>{init ? <AppRouters user={f_user} /> : "로딩중"}</>;
+
+  const refreshUser = () => {
+    const u = auth.currentUser;
+    setF_user({
+      displayName: u.displayName,
+      photoURL: u.photoURL,
+      uid: u.uid,
+      updateProfile: (args) => updateProfile(auth, args),});
+  };
+
+  return (
+    <>
+      {init ? <AppRouters refreshUser={refreshUser} user={f_user} /> : "로딩중"}
+    </>
+  );
 }
 
 export default App;
