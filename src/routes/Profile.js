@@ -1,4 +1,10 @@
-import { collection, getDocs, orderBy, query, where } from "@firebase/firestore";
+import {
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  where,
+} from "@firebase/firestore";
 import { db } from "m_base";
 import { useEffect } from "react";
 
@@ -6,12 +12,10 @@ const Profile = ({ user }) => {
   const getMyDeweets = async () => {
     const deweets = query(
       collection(db, "msg"),
-      where("createdId", "==", user.uid),
-      orderBy("createdAt"),
+      where("createdId", "==", user.uid, orderBy("createdAt")) //where안에 orderby를 넣어야 작동함 (다수의 쿼리문을 받을수 없음)
     );
-    console.log("쿼리",deweets);
     const querySnapshot = await getDocs(deweets);
-    console.log("스냅샷",querySnapshot); 
+    //console.log("스냅샷", querySnapshot);
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
     });
@@ -19,7 +23,7 @@ const Profile = ({ user }) => {
 
   useEffect(() => {
     getMyDeweets();
-  },);
+  });
 
   return (
     <div>
