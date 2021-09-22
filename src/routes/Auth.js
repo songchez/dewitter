@@ -8,7 +8,6 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 import {
-  faTwitter,
   faGoogle,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
@@ -75,7 +74,6 @@ function Auth_signIn() {
   };
   return (
     <div>
-      <h3>로그인페이지</h3>
       <form onSubmit={onSubmit} className="container">
         <input
           name="email"

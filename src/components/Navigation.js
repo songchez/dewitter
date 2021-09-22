@@ -10,7 +10,6 @@ const Navigation = ({ user }) => {
         <li>
           <Link to="/" style={{ marginRight: 10 }}>
             <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="2x" />
-            Deweet
           </Link>
         </li>
         <li>

@@ -32,7 +32,6 @@ function Home({ user, refreshUser }) { //홈화면
   //화면
   return (
     <div className="container">
-      <h1>홈</h1>
       <HomeFactory user={user} refreshUser={refreshUser} />
       <div style={{ marginTop: 30 }}>
         {nDeweets.map((deweets) => (
