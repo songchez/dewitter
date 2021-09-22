@@ -41,37 +41,39 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
   };
 
   return (
-    <div>
+    <div className="deweet">
       {editing ? (
         //에딧버튼눌렀을때
         <>
-          <form onSubmit={on_EditSubmit}>
+          <form onSubmit={on_EditSubmit} className="container deweetEdit">
             <input
               type="text"
               placeholder="Edit your deweet"
               value={newDeweet}
               required
+              autoFocus
+              className="formInput"
               onChange={onChange}
             />
           </form>
-          <button onClick={toggleEdit}>Cancel</button>
           <button onClick={on_EditSubmit}>Edit!</button>
+          <button onClick={toggleEdit} className="formBtn cancelBtn">Cancel</button>
         </>
       ) : (
         //안눌렀을때
         <>
-        {attachmentUrl && <img src={attachmentUrl} width="50" height="50" alt="attach"/>}
+        {attachmentUrl && <img src={attachmentUrl} alt="attach"/>}
           <h3>{deweetObj.text}</h3>
           <p>{new Date(deweetObj.createdAt).toString()}</p>
           {isOwned && (
-            <>
-              <button class="btn" onClick={deleteDeweet}>
+            <div class="deweet__actions">
+              <span class="btn" onClick={deleteDeweet}>
                 <FontAwesomeIcon icon={faTrashAlt} />
-              </button>
-              <button class="btn" onClick={toggleEdit}>
+              </span>
+              <span class="btn" onClick={toggleEdit}>
                 <FontAwesomeIcon icon={faEdit} />
-              </button>
-            </>
+              </span>
+              </div>
           )}
         </>
       )}

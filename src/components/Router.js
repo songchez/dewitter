@@ -10,12 +10,21 @@ function AppRouters({ refreshUser, user }) {
       {user && <Navigation user={user} />}
       <Switch>
         {user ? ( // User is signed In
-          <div>
+          <div
+            style={{
+              maxWidth: 890,
+              width: "100%",
+              margin: "0 auto",
+              marginTop: 80,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Route exact path="/">
-              <Home refreshUser = {refreshUser} user={user} />
+              <Home refreshUser={refreshUser} user={user} />
             </Route>
             <Route exact path="/profile">
-              <Profile refreshUser = {refreshUser} user={user} />
+              <Profile refreshUser={refreshUser} user={user} />
             </Route>
           </div>
         ) : (

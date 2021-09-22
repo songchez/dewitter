@@ -7,6 +7,12 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
 } from "firebase/auth";
+import {
+  faTwitter,
+  faGoogle,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Auth_signIn() {
   const [email, setEmail] = useState("");
@@ -70,7 +76,7 @@ function Auth_signIn() {
   return (
     <div>
       <h3>로그인페이지</h3>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="container">
         <input
           name="email"
           type="email"
@@ -78,6 +84,7 @@ function Auth_signIn() {
           required
           value={email}
           onChange={onChange}
+          className="authInput"
         />
         <p />
         <input
@@ -86,21 +93,23 @@ function Auth_signIn() {
           placeholder="Password"
           required
           value={password}
+          className="authInput"
           onChange={onChange}
         />
-        <input type="submit" value={newAccount ? "CreatAccount" : "Sign In"} />
+        <input type="submit" className="authInput authSubmit" value={newAccount ? "CreatAccount" : "Sign In"} />
+        {error && <span className="authError">{error}</span>}
       </form>
-      <span onClick={toggleAccount}>
+      <span onClick={toggleAccount} className="authSwitch">
         {newAccount ? "Sign In" : "CreatAccount"}
       </span>
-      <div>
+      <div className="authBtns">
         <p />
-        <button onClick={onSocialClick} name="github">
-          Continue with Github
+        <button onClick={onSocialClick} name="github" className="authBtn">
+          Continue with Github <FontAwesomeIcon icon={faGithub} />
         </button>
         <p />
-        <button onClick={onSocialClick} name="google">
-          Continue with Google
+        <button onClick={onSocialClick} name="google" className="authBtn">
+          Continue with Google <FontAwesomeIcon icon={faGoogle} />
         </button>
         <p />
         <p>{error}</p>

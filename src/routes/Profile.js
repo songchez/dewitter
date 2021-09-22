@@ -15,11 +15,13 @@ const Profile = ({ refreshUser, user }) => {
   const [newDisplayName, setDisplayName] = useState(user.displayName);
   const [userPhoto, setUserPhoto] = useState(user.photoURL);
   //console.log(user.photoURL); 현재상태확인
-  useEffect(() => {//처음 실행
+  useEffect(() => {
+    //처음 실행
     getMyDeweets();
   });
 
-  const getMyDeweets = async () => { //deweet받아오기
+  const getMyDeweets = async () => {
+    //deweet받아오기
     const deweets = query(
       collection(db, "msg"),
       where("createdId", "==", user.uid),
@@ -32,15 +34,15 @@ const Profile = ({ refreshUser, user }) => {
     });
   };
 
-
-  const changeProfile = async () => { //프로파일 편집
+  const changeProfile = async () => {
+    //프로파일 편집
     const ok = window.confirm("Are you sure Edit Your Profile?");
     if (ok) {
-      let userPhotoUrl="";
-      if(userPhoto === user.photoURL){
+      let userPhotoUrl = "";
+      if (userPhoto === user.photoURL) {
         console.log("이미지 안바뀜");
         userPhotoUrl = user.photoURL;
-      }else if (userPhoto !== "") {
+      } else if (userPhoto !== "") {
         const userPhotoRef = ref(storageSv, `${user.uid}/${uuidV4()}`);
         const response = await uploadString(
           userPhotoRef,
@@ -69,9 +71,8 @@ const Profile = ({ refreshUser, user }) => {
     }
   };
 
-
-
-  const onChangeDisName = (event) => {//디스플레이네임 바꾸기
+  const onChangeDisName = (event) => {
+    //디스플레이네임 바꾸기
     const {
       target: { value },
     } = event;
@@ -84,9 +85,8 @@ const Profile = ({ refreshUser, user }) => {
     fileInput.current.value = "";
   };
 
-
-
-  const onChangeProFileImg = (event) => {//프로필이미지바꾸기
+  const onChangeProFileImg = (event) => {
+    //프로필이미지바꾸기
     const {
       target: { files },
     } = event;
@@ -103,17 +103,19 @@ const Profile = ({ refreshUser, user }) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h3>{user.displayName}의 프로필</h3>
       <h1>Edit your Profile</h1>
-      <form onSubmit={changeProfile}>
+      <form onSubmit={changeProfile} className="profileForm">
         <div>
           {" "}
           <input
             onChange={onChangeDisName}
             type="text"
+            autoFocus
             placeholder="Edit Your Name"
             value={newDisplayName}
+            className="formInput"
           ></input>
         </div>
         {userPhoto && (
@@ -137,8 +139,14 @@ const Profile = ({ refreshUser, user }) => {
           />
         </div>
 
-        <input type="submit" value="Update Profile" />
-
+        <input
+          type="submit"
+          value="Update Profile"
+          className="formBtn"
+          style={{
+            marginTop: 10,
+          }}
+        />
       </form>
     </div>
   );
