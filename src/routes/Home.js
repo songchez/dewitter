@@ -13,7 +13,7 @@ function Home({ user, refreshUser }) { //홈화면
   const [nDeweets, setDeweets] = useState([]);
   useEffect(() => {
     // 실시간으로 데이터를 데이터베이스에서 가져오기
-    const q = query(collection(getFirestore(), "msg"), orderBy("createdAt"));
+    const q = query(collection(getFirestore(), "msg"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newArray = querySnapshot.docs.map((doc) => {
         return {

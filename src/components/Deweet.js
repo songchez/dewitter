@@ -6,8 +6,6 @@ import { ref, deleteObject } from "@firebase/storage";
 import { db, storageSv } from "m_base";
 import { useState } from "react";
 
-
-
 const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
   const [editing, setEditing] = useState(false);
   const [newDeweet, setNewDeweet] = useState(deweetObj.text);
@@ -28,6 +26,7 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
     event.preventDefault();
     await updateDoc(doc(db, `msg/${deweetObj.id}`), {
       text: newDeweet,
+      createdAt: Date.now(),
     });
     setEditing(false);
   };
@@ -40,11 +39,17 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
     setNewDeweet(value);
   };
 
+  const deweetDate = () => {
+    let nDate = new Date(deweetObj.createdAt).toString();
+    nDate = nDate.substring(3,21);
+    return nDate;
+  };
+
   return (
     <div className="deweet">
       {editing ? (
         //에딧버튼눌렀을때
-        <>
+        <div className="deweetEdit">
           <form onSubmit={on_EditSubmit} className="container deweetEdit">
             <input
               type="text"
@@ -56,15 +61,19 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
               onChange={onChange}
             />
           </form>
-          <button onClick={on_EditSubmit}>Edit!</button>
-          <button onClick={toggleEdit} className="formBtn cancelBtn">Cancel</button>
-        </>
+          <button onClick={on_EditSubmit} className="formBtn">
+            Edit
+          </button>
+          <button onClick={toggleEdit} className="formBtn cancelBtn">
+            Cancel
+          </button>
+        </div>
       ) : (
-        //안눌렀을때
+        //안눌렀을때 화면
         <>
-        {attachmentUrl && <img src={attachmentUrl} alt="attach"/>}
-          <h3>{deweetObj.text}</h3>
-          <p>{new Date(deweetObj.createdAt).toString()}</p>
+          {attachmentUrl && <img src={attachmentUrl} alt="attach" />}
+          <h4>{deweetObj.text}</h4>
+          <p>{deweetDate()}</p>
           {isOwned && (
             <div class="deweet__actions">
               <span class="btn" onClick={deleteDeweet}>
@@ -73,7 +82,7 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl }) => {
               <span class="btn" onClick={toggleEdit}>
                 <FontAwesomeIcon icon={faEdit} />
               </span>
-              </div>
+            </div>
           )}
         </>
       )}

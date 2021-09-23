@@ -1,4 +1,4 @@
-import { updateProfile } from "@firebase/auth";
+import { updateProfile, signOut } from "@firebase/auth";
 import {
   collection,
   getDocs,
@@ -101,7 +101,18 @@ const Profile = ({ refreshUser, user }) => {
     };
     reader.readAsDataURL(theFile);
   };
-
+  const Logout = () => {
+    //로그아웃
+    signOut(auth)
+      .then(() => {
+        console.log("로그아웃");
+        refreshUser();
+        window.location.replace("/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div className="container">
       <h3>{user.displayName}의 프로필</h3>
@@ -130,7 +141,6 @@ const Profile = ({ refreshUser, user }) => {
           </div>
         )}
         <div>
-          {" "}
           <input
             type="file"
             accept="image/*"
@@ -138,7 +148,6 @@ const Profile = ({ refreshUser, user }) => {
             ref={fileInput}
           />
         </div>
-
         <input
           type="submit"
           value="Update Profile"
@@ -148,6 +157,7 @@ const Profile = ({ refreshUser, user }) => {
           }}
         />
       </form>
+      <button onClick={Logout} className="formBtn logOut">로그아웃</button>
     </div>
   );
 };

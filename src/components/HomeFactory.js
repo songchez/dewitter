@@ -1,11 +1,11 @@
-import { signOut } from "firebase/auth";
-import { auth, db, storageSv } from "m_base";
+
+import { db, storageSv } from "m_base";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { useRef, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTimes, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const HomeFactory = ({ user, refreshUser }) => {
   const [deweet, setDeweet] = useState("");
@@ -68,22 +68,11 @@ const HomeFactory = ({ user, refreshUser }) => {
     setDeweet("");
     onClearAttachment();
   };
-  const Logout = () => {
-    //로그아웃
-    signOut(auth)
-      .then(() => {
-        console.log("로그아웃");
-        refreshUser();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+
   return (
     <>
-      <button onClick={Logout}>로그아웃🎆</button>
       <form onSubmit={onSubmitDeweet} className="factoryForm">
-        <div className="factoryInput__container"></div>
+        <div className="factoryInput__container">
         <input
           className="factoryInput__input"
           value={deweet}
@@ -92,7 +81,11 @@ const HomeFactory = ({ user, refreshUser }) => {
           placeholder="What's on your mind ?"
           maxLength={120}
         ></input>
-        <input type="submit" className="factoryInput__arrow" />
+        <label for="submitBtn" className="factoryInput__arrow">
+        <FontAwesomeIcon icon={faPaperPlane} />
+        </label>
+        <input id="submitBtn" type="submit" value="" />
+        </div>
         <label for="attach-file" className="factoryInput__label">
           <span>Add photos</span>
           <FontAwesomeIcon icon={faPlus} />
@@ -107,7 +100,6 @@ const HomeFactory = ({ user, refreshUser }) => {
             opacity: 0,
           }}
         />
-        <input type="submit" value="Deweet" onClick={onSubmitDeweet}  />
         {attachment && (
           <div className="factoryForm__attachment">
             <img
