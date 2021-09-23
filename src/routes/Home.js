@@ -39,6 +39,7 @@ function Home({ user, refreshUser }) { //홈화면
             key={deweets.id}
             deweetObj={deweets}
             isOwned={deweets.createdId === user.uid}
+            userName={deweets.createdWho}
             attachmentUrl={deweets.attachmentUrl}
           />
         ))}

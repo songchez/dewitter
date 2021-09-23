@@ -11,7 +11,7 @@ import { db, auth, storageSv } from "m_base";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ refreshUser, user }) => {
   const [newDisplayName, setDisplayName] = useState(user.displayName);
@@ -131,8 +131,8 @@ const Profile = ({ refreshUser, user }) => {
             </div>
           )}
           <div>
-            <button onClick={onClearAttachment}>
-              <FontAwesomeIcon icon={faTrashAlt} color={"#04AAFF"} />
+            <button onClick={onClearAttachment} >
+              <FontAwesomeIcon icon={faTrashAlt} />
             </button>
             <input
               type="file"

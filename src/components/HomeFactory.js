@@ -60,6 +60,7 @@ const HomeFactory = ({ user, refreshUser }) => {
       createdAt: Date.now(),
       createdId: user.uid,
       attachmentUrl,
+      createdWho: user.displayName,
     };
     await addDoc(collection(db, "msg"), deweets).catch((e) => {
       console.error(e);
