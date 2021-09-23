@@ -15,7 +15,7 @@ function AppRouters({ refreshUser, user }) {
               maxWidth: 890,
               width: "100%",
               margin: "0 auto",
-              marginTop: 80,
+              marginTop: 40,
               display: "flex",
               justifyContent: "center",
             }}

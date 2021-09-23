@@ -72,6 +72,7 @@ const HomeFactory = ({ user, refreshUser }) => {
   return (
     <>
       <form onSubmit={onSubmitDeweet} className="factoryForm">
+        <p>{`${user.displayName}님 환영합니다!`}</p>
         <div className="factoryInput__container">
         <input
           className="factoryInput__input"

@@ -10,6 +10,8 @@ import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { db, auth, storageSv } from "m_base";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ refreshUser, user }) => {
   const [newDisplayName, setDisplayName] = useState(user.displayName);
@@ -51,7 +53,7 @@ const Profile = ({ refreshUser, user }) => {
         );
         userPhotoUrl = await getDownloadURL(response.ref);
       }
-      if (newDisplayName.length > 3) {
+      if (newDisplayName.length > 2) {
         await updateProfile(auth.currentUser, {
           displayName: newDisplayName,
           photoURL: userPhotoUrl,
@@ -66,7 +68,7 @@ const Profile = ({ refreshUser, user }) => {
             console.log(error);
           });
       } else {
-        alert("글자수가 너무 적습니다!(4글자 이상)");
+        alert("글자수가 너무 적습니다!(3글자 이상)");
       }
     }
   };
@@ -115,11 +117,30 @@ const Profile = ({ refreshUser, user }) => {
   };
   return (
     <div className="container">
-      <h3>{user.displayName}의 프로필</h3>
-      <h1>Edit your Profile</h1>
       <form onSubmit={changeProfile} className="profileForm">
         <div>
-          {" "}
+          <p>{user.displayName}님의 프로필 Edit your Profile</p>
+          {userPhoto && (
+            <div className="profileForm__Photo">
+              <img
+                src={userPhoto}
+                width="200px"
+                height="200px"
+                alt={`${user.displayName} 의 프로필이미지`}
+              />
+            </div>
+          )}
+          <div>
+            <button onClick={onClearAttachment}>
+              <FontAwesomeIcon icon={faTrashAlt} color={"#04AAFF"} />
+            </button>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={onChangeProFileImg}
+              ref={fileInput}
+            />
+          </div>
           <input
             onChange={onChangeDisName}
             type="text"
@@ -128,25 +149,6 @@ const Profile = ({ refreshUser, user }) => {
             value={newDisplayName}
             className="formInput"
           ></input>
-        </div>
-        {userPhoto && (
-          <div>
-            <img
-              src={userPhoto}
-              width="100px"
-              height="100px"
-              alt={`${user.displayName} 의 프로필이미지`}
-            />
-            <button onClick={onClearAttachment}>Clear</button>
-          </div>
-        )}
-        <div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={onChangeProFileImg}
-            ref={fileInput}
-          />
         </div>
         <input
           type="submit"
@@ -157,7 +159,9 @@ const Profile = ({ refreshUser, user }) => {
           }}
         />
       </form>
-      <button onClick={Logout} className="formBtn logOut">로그아웃</button>
+      <button onClick={Logout} className="formBtn logOut">
+        로그아웃
+      </button>
     </div>
   );
 };

@@ -78,6 +78,15 @@ form {
   background-color: tomato;
 }
 
+/* Navigation */
+
+.navProfile {
+  display: flex;
+  width: 40px;
+  flex-direction: column;
+  border-radius: 30px;
+}
+
 /* Profile Page */
 
 .profileForm {
@@ -86,6 +95,22 @@ form {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.profileForm__Photo {
+  width: 100%;
+  max-width: 320px;
+  flex-direction: column;
+}
+
+.profileForm p{
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  color: #04aaff;
+  justify-content: left;
+  width: 100%;
+  font-size: 12px;
 }
 
 .logOut {
@@ -102,6 +127,16 @@ form {
   width: 100%;
 }
 
+.factoryForm p{
+  margin-bottom: 15px;
+  position: relative;
+  display: flex;
+  color: #04aaff;
+  justify-content: left;
+  width: 100%;
+  font-size: 12px;
+}
+
 .factoryInput__container {
   display: flex;
   justify-content: space-between;
@@ -114,21 +149,20 @@ form {
 
 .factoryInput__input {
   flex-grow: 1;
-  height: 40px;
+  height: 50px;
   padding: 0px 20px;
   color: white;
   border: 1px solid #04aaff;
-  border-radius: 13px;
+  border-radius: 12px;
   font-weight: 500;
   font-size: 14px;
 }
 
 .factoryInput__arrow {
   background-color: #04aaff;
-  padding: 14px;
+  padding: 13px;
   text-align: center;
-  size: 20px;
-  border-radius: 13px;
+  border-radius: 12px;
   color: white;
 }
 
