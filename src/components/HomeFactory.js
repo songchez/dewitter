@@ -107,7 +107,7 @@ const HomeFactory = ({ user, refreshUser }) => {
             opacity: 0,
           }}
         />
-        <input type="submit" value="Deweet" onClick={onSubmitDeweet} />
+        <input type="submit" value="Deweet" onClick={onSubmitDeweet}  />
         {attachment && (
           <div className="factoryForm__attachment">
             <img
