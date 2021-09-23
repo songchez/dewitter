@@ -28,7 +28,6 @@ function Home({ user, refreshUser }) { //홈화면
       unsubscribe();
     };
   }, []);
-
   //화면
   return (
     <div className="container" >
@@ -36,10 +35,12 @@ function Home({ user, refreshUser }) { //홈화면
       <div style={{ marginTop: 30 }}>
         {nDeweets.map((deweets) => (
           <Deweet
+            color={deweets.userColor}
             key={deweets.id}
             deweetObj={deweets}
             isOwned={deweets.createdId === user.uid}
             userName={deweets.createdWho}
+            photoUrl={deweets.profileImg}
             attachmentUrl={deweets.attachmentUrl}
           />
         ))}

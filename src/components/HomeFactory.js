@@ -1,11 +1,14 @@
-
 import { db, storageSv } from "m_base";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { useRef, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { v4 as uuidV4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faTimes,
+  faPaperPlane,
+} from "@fortawesome/free-solid-svg-icons";
 
 const HomeFactory = ({ user, refreshUser }) => {
   const [deweet, setDeweet] = useState("");
@@ -38,6 +41,14 @@ const HomeFactory = ({ user, refreshUser }) => {
     setAttachment("");
     fileInput.current.value = "";
   };
+
+  //랜덤컬러(deweet용)
+  let color;
+  const randomColors = () => {
+    const randomColor = require("randomcolor");
+    color = randomColor();
+  };
+  
   //deweet서밋버튼
   const onSubmitDeweet = async (event) => {
     if (deweet === "") {
@@ -55,12 +66,16 @@ const HomeFactory = ({ user, refreshUser }) => {
       );
       attachmentUrl = await getDownloadURL(response.ref);
     }
+    randomColors();
+
     const deweets = {
       text: deweet,
       createdAt: Date.now(),
       createdId: user.uid,
       attachmentUrl,
       createdWho: user.displayName,
+      profileImg: user.photoURL,
+      userColor: color,
     };
     await addDoc(collection(db, "msg"), deweets).catch((e) => {
       console.error(e);
@@ -75,18 +90,18 @@ const HomeFactory = ({ user, refreshUser }) => {
       <form onSubmit={onSubmitDeweet} className="factoryForm">
         <p>{`${user.displayName}님 환영합니다!`}</p>
         <div className="factoryInput__container">
-        <input
-          className="factoryInput__input"
-          value={deweet}
-          onChange={onChange}
-          type="text"
-          placeholder="What's on your mind ?"
-          maxLength={120}
-        ></input>
-        <label for="submitBtn" className="factoryInput__arrow">
-        <FontAwesomeIcon icon={faPaperPlane} />
-        </label>
-        <input id="submitBtn" type="submit" value="" />
+          <input
+            className="factoryInput__input"
+            value={deweet}
+            onChange={onChange}
+            type="text"
+            placeholder="What's on your mind ?"
+            maxLength={120}
+          ></input>
+          <label for="submitBtn" className="factoryInput__arrow">
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </label>
+          <input id="submitBtn" type="submit" value="" />
         </div>
         <label for="attach-file" className="factoryInput__label">
           <span>Add photos</span>

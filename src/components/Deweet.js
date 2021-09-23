@@ -6,7 +6,7 @@ import { ref, deleteObject } from "@firebase/storage";
 import { db, storageSv } from "m_base";
 import { useState } from "react";
 
-const Deweet = ({ deweetObj, isOwned, attachmentUrl, userName }) => {
+const Deweet = ({ deweetObj, isOwned, attachmentUrl, photoUrl, userName, color }) => {
   const [editing, setEditing] = useState(false);
   const [newDeweet, setNewDeweet] = useState(deweetObj.text);
 
@@ -18,13 +18,6 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl, userName }) => {
       await deleteObject(ref(storageSv, deweetObj.attachmentUrl));
     }
   };
-
-  //랜덤컬러(deweet용)
-  const randomColor= ()=>{
-    const randomColor = require('randomcolor');
-    var color = randomColor();
-    return color;
-  }
   
   //에딧버튼
   const toggleEdit = () => setEditing((prev) => !prev);
@@ -78,10 +71,11 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl, userName }) => {
       ) : (
         //안눌렀을때 화면
         <>
+          {photoUrl && <img className="deweet__photoUrl" src={photoUrl} alt="photoUrl"/>}
           {attachmentUrl && <img src={attachmentUrl} alt="attach" />}
-          <h3 className="deweet__disName" color={randomColor} >{userName}</h3>
-          <h4>{deweetObj.text}</h4>
-          <p color={randomColor}>{deweetDate()}</p>
+          <h3 className="deweet__disName" style={{color: color}} >{userName}</h3>
+          <h4 >{deweetObj.text}</h4>
+          <p>{deweetDate()}</p>
           {isOwned && (
             <div class="deweet__actions">
               <span class="btn" onClick={deleteDeweet}>
