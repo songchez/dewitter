@@ -234,7 +234,6 @@ form {
   text-align: center;
   width: 150px;
   background: white;
-  cursor: pointer;
 }
 
 /* AuthForm */
@@ -271,6 +270,7 @@ form {
   margin-top: 10px;
   margin-bottom: 50px;
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   text-decoration: underline;
+  text-align: center;
 }

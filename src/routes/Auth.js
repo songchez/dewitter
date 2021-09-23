@@ -10,6 +10,7 @@ import {
 import {
   faGoogle,
   faGithub,
+  faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -47,6 +48,7 @@ function Auth_signIn() {
     }
   };
   const toggleAccount = () => setNewAccount((prev) => !prev);
+
   const onSocialClick = async (event) => {
     const {
       target: { name },
@@ -62,18 +64,17 @@ function Auth_signIn() {
         //setUserObject(result.user);
       })
       .catch((error) => {
-        const errorMessage = error.message;
-        console.error(errorMessage);
-        // // Handle Errors here.
-        // const errorCode = error.code;
-        // // The email of the user's account used.
-        // const email = error.email;
-        // // The AuthCredential type that was used.
-        // const credential = GoogleAuthProvider.credentialFromError(error);
+        console.error(error.message);
       });
   };
   return (
-    <div>
+    <div className="authContainer">
+      <FontAwesomeIcon
+        icon={faTwitter}
+        color={"#04AAFF"}
+        size="3x"
+        style={{ marginBottom: 30 }}
+      />
       <form onSubmit={onSubmit} className="container">
         <input
           name="email"
@@ -84,7 +85,6 @@ function Auth_signIn() {
           onChange={onChange}
           className="authInput"
         />
-        <p />
         <input
           name="password"
           type="password"
@@ -94,24 +94,24 @@ function Auth_signIn() {
           className="authInput"
           onChange={onChange}
         />
-        <input type="submit" className="authInput authSubmit" value={newAccount ? "CreatAccount" : "Sign In"} />
+        <input
+          type="submit"
+          className="authInput authSubmit"
+          value={newAccount ? "CreatAccount" : "Sign In"}
+        />
         {error && <span className="authError">{error}</span>}
       </form>
-      <span onClick={toggleAccount} className="authSwitch">
-        {newAccount ? "Sign In" : "CreatAccount"}
-      </span>
-      <div className="authBtns">
-        <p />
-        <button onClick={onSocialClick} name="github" className="authBtn">
-          Continue with Github <FontAwesomeIcon icon={faGithub} />
-        </button>
-        <p />
-        <button onClick={onSocialClick} name="google" className="authBtn">
-          Continue with Google <FontAwesomeIcon icon={faGoogle} />
-        </button>
-        <p />
-        <p>{error}</p>
-      </div>
+        <span onClick={toggleAccount} className="authSwitch">
+          {newAccount ? "Sign In" : "CreatAccount"}
+        </span>
+        <div className="authBtns">
+          <button onClick={onSocialClick} name="github" className="authBtn">
+            Continue with Github <FontAwesomeIcon icon={faGithub} />
+          </button>
+          <button onClick={onSocialClick} name="google" className="authBtn">
+            Continue with Google <FontAwesomeIcon icon={faGoogle} />
+          </button>
+        </div>
     </div>
   );
 }
