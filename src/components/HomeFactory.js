@@ -119,7 +119,7 @@ const HomeFactory = ({ user, refreshUser }) => {
             maxLength={120}
           ></input>
           <label htmlFor="submitBtn" className="factoryInput__arrow">
-            <FontAwesomeIcon icon={faPaperPlane} />
+            <FontAwesomeIcon icon={faPaperPlane} size="2x" />
           </label>
           <input id="submitBtn" type="submit" value="" />
         </div>
