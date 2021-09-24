@@ -68,9 +68,9 @@ form {
   cursor: pointer;
   padding: 7px 20px;
   text-align: center;
-  color: white;
+  color:white;
   border-radius: 20px;
-  background-color: #04aaff;
+  background-color: #37c0ff;
   box-sizing: border-box;
 }
 
@@ -85,7 +85,7 @@ form {
   font-size: 25px;
   text-align: center;
   margin-right: 110px;
-  color:#04aaff;
+  color:#37c0ff;
 }
 
 .navHome {
@@ -97,7 +97,7 @@ form {
 }
 
 .navProfile {
-  border: solid 1px #04aaff; 
+  border: solid 1px #37c0ff; 
   display: flex;
   width: 40px;
   flex-direction: column;
@@ -121,7 +121,7 @@ form {
 }
 
 .profileForm label {
-  color:#04aaff;
+  color:#37c0ff;
   width: 100%;
   justify-content: space-between;
   text-align: center;
@@ -133,7 +133,7 @@ form {
   margin-bottom: 15px;
   position: relative;
   display: flex;
-  color: #04aaff;
+  color: #37c0ff;
   justify-content: left;
   width: 100%;
   font-size: 12px;
@@ -157,7 +157,7 @@ form {
   margin-bottom: 15px;
   position: relative;
   display: flex;
-  color: #04aaff;
+  color: #37c0ff;
   justify-content: left;
   width: 100%;
   font-size: 12px;
@@ -178,7 +178,7 @@ form {
   height: 50px;
   padding: 0px 20px;
   color: white;
-  border: 1px solid #04aaff;
+  border: 1px solid #37c0ff;
   border-radius: 5px;
   font-weight: 500;
   font-size: 14px;
@@ -189,11 +189,11 @@ form {
   padding: 8px;
   text-align: center;
   border-radius: 12px;
-  color:#04aaff;
+  color:#37c0ff;
 }
 
 .factoryInput__label {
-  color: #04aaff;
+  color: #37c0ff;
   cursor: pointer;
 }
 
@@ -215,7 +215,7 @@ form {
 }
 
 .factoryForm__clear {
-  color: #04aaff;
+  color: #37c0ff;
   cursor: pointer;
   text-align: center;
 }
@@ -352,7 +352,7 @@ form {
 
 .authSubmit {
   text-align: center;
-  background: #04aaff;
+  background: #37c0ff;
   color: white;
   margin-top: 10;
   cursor: pointer;
@@ -366,7 +366,7 @@ form {
 }
 
 .authSwitch {
-  color: #04aaff;
+  color: #37c0ff;
   cursor: pointer;
   margin-top: 10px;
   margin-bottom: 50px;

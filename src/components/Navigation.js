@@ -20,7 +20,7 @@ const Navigation = ({ user }) => {
           <li>
             <Link to="/">
               <div className="navHome">
-                <FontAwesomeIcon icon={faHome} color={"#04AAFF"} size="2x" />
+                <FontAwesomeIcon icon={faHome} color={"#37c0ff"} size="2x" />
               </div>
             </Link>
           </li>
