@@ -98,9 +98,17 @@ form {
 }
 
 .profileForm__Photo {
+  display: block; 
+  margin: 0px auto;
+}
+
+.profileForm label {
+  color:#04aaff;
   width: 100%;
-  max-width: 320px;
-  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 15px;
+  
 }
 
 .profileForm p{
@@ -222,9 +230,10 @@ form {
 
 .deweet h4 {
   font-size: 15px;
+  margin-top: 4px;
 }
 
-.deweet img {
+.deweet__photoUrl {
   left: -40px;
   top: 0px;
   position: absolute;
@@ -233,15 +242,27 @@ form {
   height: 50px;
 }
 
+.deweet__attach {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .deweet__disName {
   left: 10px;
-  top: 3px;
+  top: 7px;
   position: absolute;
   font-weight: bold;
 }
 
 .deweet p {
   text-align: right;
+  right: 7px;
+  bottom: 5px;
+  position: absolute;
+  font-size: 11px;
 }
 
 .deweet__actions {

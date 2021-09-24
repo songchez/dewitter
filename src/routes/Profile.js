@@ -10,8 +10,6 @@ import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import { db, auth, storageSv } from "m_base";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ refreshUser, user }) => {
   const [newDisplayName, setDisplayName] = useState(user.displayName);
@@ -82,10 +80,10 @@ const Profile = ({ refreshUser, user }) => {
   };
 
   const fileInput = useRef();
-  const onClearAttachment = () => {
-    setUserPhoto("");
-    fileInput.current.value = "";
-  };
+  // const onClearAttachment = () => {
+  //   setUserPhoto("");
+  //   fileInput.current.value = "";
+  // };
 
   const onChangeProFileImg = (event) => {
     //프로필이미지바꾸기
@@ -121,24 +119,29 @@ const Profile = ({ refreshUser, user }) => {
         <div>
           <p>{user.displayName}님의 프로필 Edit your Profile</p>
           {userPhoto && (
-            <div className="profileForm__Photo">
+            <>
               <img
+                className="profileForm__Photo"
                 src={userPhoto}
-                width="200px"
-                height="200px"
+                width="150px"
+                height="150px"
                 alt={`${user.displayName} 의 프로필이미지`}
               />
-            </div>
+            </>
           )}
           <div>
-            <button onClick={onClearAttachment} >
-              <FontAwesomeIcon icon={faTrashAlt} />
-            </button>
+            <label for="userPhoto">
+              <h4>프로필사진바꾸기</h4>
+            </label>
             <input
+              id="userPhoto"
               type="file"
               accept="image/*"
               onChange={onChangeProFileImg}
               ref={fileInput}
+              style={{
+                opacity: 0,
+              }}
             />
           </div>
           <input

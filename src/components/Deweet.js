@@ -72,7 +72,7 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl, photoUrl, userName, color }
         //안눌렀을때 화면
         <>
           {photoUrl && <img className="deweet__photoUrl" src={photoUrl} alt="photoUrl"/>}
-          {attachmentUrl && <img src={attachmentUrl} alt="attach" />}
+          {attachmentUrl && <img className="deweet__attach" src={attachmentUrl} alt="attach" />}
           <h3 className="deweet__disName" style={{color: color}} >{userName}</h3>
           <h4 >{deweetObj.text}</h4>
           <p>{deweetDate()}</p>
