@@ -31,6 +31,7 @@ form {
   width: 100%;
 }
 
+
 .deweet-input::placeholder {
   color: white;
   opacity: 0.9;
@@ -80,11 +81,28 @@ form {
 
 /* Navigation */
 
-.navProfile {
+.top__Logo{
+  font-size: 25px;
+  text-align: center;
+  margin-right: 110px;
+  color:#04aaff;
+}
+
+.navHome {
   display: flex;
   width: 40px;
   flex-direction: column;
-  border-radius: 30px;
+  border-radius: 17px;
+  margin-right: 10px;
+}
+
+.navProfile {
+  border: solid 1px #04aaff; 
+  display: flex;
+  width: 40px;
+  flex-direction: column;
+  margin-top: -6px;
+  border-radius: 17px;
 }
 
 /* Profile Page */
