@@ -107,11 +107,11 @@ const Deweet = ({
           <h4>{deweetObj.text}</h4>
           <p>{deweetDate()}</p>
           {isOwned && (
-            <div class="deweet__actions">
-              <span class="btn" onClick={deleteDeweet}>
+            <div className="deweet__actions">
+              <span className="btn" onClick={deleteDeweet}>
                 <FontAwesomeIcon icon={faTrashAlt} />
               </span>
-              <span class="btn" onClick={toggleEdit}>
+              <span className="btn" onClick={toggleEdit}>
                 <FontAwesomeIcon icon={faEdit} />
               </span>
             </div>

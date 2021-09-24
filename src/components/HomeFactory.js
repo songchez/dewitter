@@ -118,7 +118,7 @@ const HomeFactory = ({ user, refreshUser }) => {
             placeholder="What's on your mind ?"
             maxLength={120}
           ></input>
-          <label for="submitBtn" className="factoryInput__arrow">
+          <label htmlFor="submitBtn" className="factoryInput__arrow">
             <FontAwesomeIcon icon={faPaperPlane} />
           </label>
           <input id="submitBtn" type="submit" value="" />
