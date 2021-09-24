@@ -123,7 +123,7 @@ const HomeFactory = ({ user, refreshUser }) => {
           </label>
           <input id="submitBtn" type="submit" value="" />
         </div>
-        <label for="attach-file" className="factoryInput__label">
+        <label htmlFor="attach-file" className="factoryInput__label">
           <span>파일첨부</span>
           <FontAwesomeIcon icon={faPlus} />
         </label>

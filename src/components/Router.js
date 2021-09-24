@@ -9,6 +9,7 @@ function AppRouters({ refreshUser, user }) {
     <Router>
       {user && <Navigation user={user} />}
       <Switch>
+        <>
         {user ? ( // User is signed In
           <div
             style={{
@@ -33,6 +34,7 @@ function AppRouters({ refreshUser, user }) {
             <Auth />
           </Route>
         )}
+        </>
       </Switch>
     </Router>
   );

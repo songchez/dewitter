@@ -130,7 +130,7 @@ const Profile = ({ refreshUser, user }) => {
             </>
           )}
           <div>
-            <label for="userPhoto">
+            <label htmlFor="userPhoto">
               <h4>프로필사진바꾸기</h4>
             </label>
             <input
