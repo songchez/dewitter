@@ -147,7 +147,6 @@ const Profile = ({ refreshUser, user }) => {
           <input
             onChange={onChangeDisName}
             type="text"
-            autoFocus
             placeholder="Edit Your Name"
             value={newDisplayName}
             className="formInput"
