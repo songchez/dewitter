@@ -233,6 +233,13 @@ form {
   margin-top: 4px;
 }
 
+.deweet__audio {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  left: -15px;
+  position: relative;
+}
+
 .deweet__photoUrl {
   left: -40px;
   top: 0px;

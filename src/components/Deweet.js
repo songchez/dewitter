@@ -54,15 +54,22 @@ const Deweet = ({
   };
 
   const viewFile = () => {
-    console.log("타입: ",fileTypes);
+    console.log("타입: ", fileTypes);
     if (fileTypes === "image") {
-      return(<img className="deweet__attach" src={attachmentUrl} alt="attach" />)
-    } else if (fileTypes === "audio") { //todo:CSS만들기
-      return(<audio controls>
-        <source src={attachmentUrl} type="audio/*"/>
-      </audio>)
+      return (
+        <img className="deweet__attach" src={attachmentUrl} alt="attach" />
+      );
+    } else if (fileTypes === "audio") {
+      //audio이무니다
+      return (
+        <div className="deweet__audio">
+          <audio controls>
+            <source src={attachmentUrl} />
+          </audio>
+        </div>
+      );
     }
-  }
+  };
 
   return (
     <div className="deweet">
@@ -95,7 +102,7 @@ const Deweet = ({
           )}
           {attachmentUrl && viewFile()}
           <h3 className="deweet__disName" style={{ color: color }}>
-          {userName}
+            {userName}
           </h3>
           <h4>{deweetObj.text}</h4>
           <p>{deweetDate()}</p>

@@ -26,7 +26,7 @@ const HomeFactory = ({ user, refreshUser }) => {
     const {
       target: { files },
     } = event;
-    
+
     const theFile = files[0];
     const maxSize = 8 * 1024 * 1024;//8메가까지 가능
 
@@ -139,11 +139,12 @@ const HomeFactory = ({ user, refreshUser }) => {
         />
         {attachment && (
           <div className="factoryForm__attachment">
-            <img
-              src={attachment}
-              style={{ backgroundImage: attachment }}
-              alt="yourDeweet"
-            />
+            <div>
+              <img
+                src={attachment}
+                alt={fileInput.current.value.substring(12)}
+              />
+            </div>
             <div className="factoryForm__clear" onClick={onClearAttachment}>
               <span>Remove</span>
               <FontAwesomeIcon icon={faTimes} />
