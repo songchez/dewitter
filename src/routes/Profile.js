@@ -51,7 +51,7 @@ const Profile = ({ refreshUser, user }) => {
         );
         userPhotoUrl = await getDownloadURL(response.ref);
       }
-      if (newDisplayName.length > 2) {
+      if (newDisplayName.length > 2 && newDisplayName.length < 21) {
         await updateProfile(auth.currentUser, {
           displayName: newDisplayName,
           photoURL: userPhotoUrl,
@@ -66,7 +66,7 @@ const Profile = ({ refreshUser, user }) => {
             console.log(error);
           });
       } else {
-        alert("글자수가 너무 적습니다!(3글자 이상)");
+        alert("글자수가 너무 적거나 많습니다! (3글자 이상 20자 이하)");
       }
     }
   };
