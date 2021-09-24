@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/dewitter/static/css/main.fbee3cb9.chunk.css",
+    "main.css": "/dewitter/static/css/main.f8a3104b.chunk.css",
     "main.js": "/dewitter/static/js/main.8123cb84.chunk.js",
     "main.js.map": "/dewitter/static/js/main.8123cb84.chunk.js.map",
     "runtime-main.js": "/dewitter/static/js/runtime-main.1f1e6123.js",
@@ -8,14 +8,14 @@
     "static/js/2.8ca23d74.chunk.js": "/dewitter/static/js/2.8ca23d74.chunk.js",
     "static/js/2.8ca23d74.chunk.js.map": "/dewitter/static/js/2.8ca23d74.chunk.js.map",
     "index.html": "/dewitter/index.html",
-    "static/css/main.fbee3cb9.chunk.css.map": "/dewitter/static/css/main.fbee3cb9.chunk.css.map",
+    "static/css/main.f8a3104b.chunk.css.map": "/dewitter/static/css/main.f8a3104b.chunk.css.map",
     "static/js/2.8ca23d74.chunk.js.LICENSE.txt": "/dewitter/static/js/2.8ca23d74.chunk.js.LICENSE.txt",
     "static/media/Loader.128fb3a4.svg": "/dewitter/static/media/Loader.128fb3a4.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1f1e6123.js",
     "static/js/2.8ca23d74.chunk.js",
-    "static/css/main.fbee3cb9.chunk.css",
+    "static/css/main.f8a3104b.chunk.css",
     "static/js/main.8123cb84.chunk.js"
   ]
 }
