@@ -6,7 +6,15 @@ import { ref, deleteObject } from "@firebase/storage";
 import { db, storageSv } from "m_base";
 import { useState } from "react";
 
-const Deweet = ({ deweetObj, isOwned, attachmentUrl, photoUrl, userName, color }) => {
+const Deweet = ({
+  deweetObj,
+  isOwned,
+  attachmentUrl,
+  fileTypes,
+  photoUrl,
+  userName,
+  color,
+}) => {
   const [editing, setEditing] = useState(false);
   const [newDeweet, setNewDeweet] = useState(deweetObj.text);
 
@@ -18,7 +26,7 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl, photoUrl, userName, color }
       await deleteObject(ref(storageSv, deweetObj.attachmentUrl));
     }
   };
-  
+
   //에딧버튼
   const toggleEdit = () => setEditing((prev) => !prev);
 
@@ -41,9 +49,20 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl, photoUrl, userName, color }
 
   const deweetDate = () => {
     let nDate = new Date(deweetObj.createdAt).toString();
-    nDate = nDate.substring(3,21);
+    nDate = nDate.substring(3, 21);
     return nDate;
   };
+
+  const viewFile = () => {
+    console.log("타입: ",fileTypes);
+    if (fileTypes === "image") {
+      return(<img className="deweet__attach" src={attachmentUrl} alt="attach" />)
+    } else if (fileTypes === "audio") { //todo:CSS만들기
+      return(<audio controls>
+        <source src={attachmentUrl} type="audio/*"/>
+      </audio>)
+    }
+  }
 
   return (
     <div className="deweet">
@@ -71,10 +90,14 @@ const Deweet = ({ deweetObj, isOwned, attachmentUrl, photoUrl, userName, color }
       ) : (
         //안눌렀을때 화면
         <>
-          {photoUrl && <img className="deweet__photoUrl" src={photoUrl} alt="photoUrl"/>}
-          {attachmentUrl && <img className="deweet__attach" src={attachmentUrl} alt="attach" />}
-          <h3 className="deweet__disName" style={{color: color}} >{userName}</h3>
-          <h4 >{deweetObj.text}</h4>
+          {photoUrl && (
+            <img className="deweet__photoUrl" src={photoUrl} alt="photoUrl" />
+          )}
+          {attachmentUrl && viewFile()}
+          <h3 className="deweet__disName" style={{ color: color }}>
+          {userName}
+          </h3>
+          <h4>{deweetObj.text}</h4>
           <p>{deweetDate()}</p>
           {isOwned && (
             <div class="deweet__actions">

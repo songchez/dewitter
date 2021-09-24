@@ -33,11 +33,12 @@ function Home({ user, refreshUser }) { //홈화면
     <div className="container" >
       <HomeFactory user={user} refreshUser={refreshUser} />
       <div style={{ marginTop: 30 }}>
-        {nDeweets.map((deweets) => (
+        {nDeweets.map((deweets) => (//각각의 deweets 생성
           <Deweet
             color={deweets.userColor}
             key={deweets.id}
             deweetObj={deweets}
+            fileTypes={deweets.fileTypes}
             isOwned={deweets.createdId === user.uid}
             userName={deweets.createdWho}
             photoUrl={deweets.profileImg}

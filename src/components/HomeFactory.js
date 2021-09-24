@@ -12,27 +12,44 @@ import {
 
 const HomeFactory = ({ user, refreshUser }) => {
   const [deweet, setDeweet] = useState("");
+  const [fileTypes, setFileTypes] = useState("");
   const [attachment, setAttachment] = useState("");
+
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
     setDeweet(value);
   };
+
   const onFileChange = (event) => {
     const {
       target: { files },
     } = event;
+    
     const theFile = files[0];
-    const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-      //image가져온거 넣기
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      setAttachment(result);
-    };
-    reader.readAsDataURL(theFile);
+    const maxSize = 8 * 1024 * 1024;//8메가까지 가능
+
+    if(files[0].size > maxSize){
+      alert("첨부파일 사이즈는 8MB 이내로 등록 가능합니다.");
+    }else{
+      const reader = new FileReader();
+      reader.onloadend = (finishedEvent) => {
+        //image가져온거 넣기
+        const {
+          currentTarget: { result },
+        } = finishedEvent;
+        setAttachment(result);
+        
+        //데이터 형식 구분
+        if (result.substring(5,10) === "image"){
+          setFileTypes("image");
+        } else if(result.substring(5,10) === "audio"){
+          setFileTypes("audio");
+        }
+      };
+      reader.readAsDataURL(theFile); //이게로드된다음에 위에꺼가 실행되는것이다.
+    }
   };
 
   //사진 지우기
@@ -67,12 +84,13 @@ const HomeFactory = ({ user, refreshUser }) => {
       attachmentUrl = await getDownloadURL(response.ref);
     }
     randomColors();
-
-    const deweets = {
+  
+    const deweets = {// -> Deweet생성인스턴스
       text: deweet,
       createdAt: Date.now(),
       createdId: user.uid,
       attachmentUrl,
+      fileTypes : fileTypes,
       createdWho: user.displayName,
       profileImg: user.photoURL,
       userColor: color,
@@ -84,6 +102,8 @@ const HomeFactory = ({ user, refreshUser }) => {
     setDeweet("");
     onClearAttachment();
   };
+
+
 
   return (
     <>
@@ -104,13 +124,13 @@ const HomeFactory = ({ user, refreshUser }) => {
           <input id="submitBtn" type="submit" value="" />
         </div>
         <label for="attach-file" className="factoryInput__label">
-          <span>Add photos</span>
+          <span>파일첨부</span>
           <FontAwesomeIcon icon={faPlus} />
         </label>
         <input
           id="attach-file"
           type="file"
-          accept="image/*"
+          accept="image/*, audio/*"
           onChange={onFileChange}
           ref={fileInput}
           style={{
